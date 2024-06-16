@@ -1,0 +1,14 @@
+# Copied from
+# https://typedb.com/docs/manual/console#_non_interactive_mode
+
+database create test
+transaction test schema write
+    define person sub entity, owns name; name sub attribute, value string;
+    commit
+transaction test data write
+    insert $x isa person, has name "Bob";
+    commit
+transaction test data read
+    match $x isa person, has name $f; fetch $f;
+    close
+database delete test

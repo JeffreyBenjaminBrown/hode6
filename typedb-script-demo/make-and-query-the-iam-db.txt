@@ -1,0 +1,11 @@
+database create iam_sample_db
+transaction iam_sample_db schema write
+    source iam-schema.tql
+    commit
+transaction iam_sample_db data write
+    source iam-data.tql
+    commit
+transaction iam_sample_db data read
+    match $p isa person; fetch $p as person: attribute;
+    close
+database delete iam_sample_db
