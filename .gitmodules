@@ -1,0 +1,3 @@
+[submodule "typedb-driver-python"]
+	path = typedb-driver-python
+	url = git@github.com:vaticle/typedb-driver-python
