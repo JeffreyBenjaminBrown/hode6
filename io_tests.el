@@ -1,0 +1,13 @@
+(defun make-two-buffers-with-independent-states ()
+  "Creates two buffers, both of whose names begin with 'indy-state-buffer', and a function show-and-increment-state. The result of evaluating the function depends on which of the two buffers one is in."
+  (interactive)
+  (defvar my-state 0)
+  (make-variable-buffer-local 'my-state)
+  (defun show-and-increment-state ()
+    (interactive)
+    (message (number-to-string my-state))
+    (setq my-state (+ 1 my-state))
+    )
+  (switch-to-buffer (generate-new-buffer "indy-state-buffer"))
+  (switch-to-buffer (generate-new-buffer "indy-state-buffer"))
+  )
