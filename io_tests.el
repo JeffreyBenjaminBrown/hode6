@@ -1,0 +1,12 @@
+(progn ;; buffer-local variable demo
+  "Creates two buffers fazoo and nazam, and a function show-and-increment-state. The result of evaluating the function depends on which of the two buffers one is in.")
+  (defvar my-state 0)
+  (make-variable-buffer-local 'my-state)
+  (defun show-and-increment-state ()
+    (interactive)
+    (message (number-to-string my-state))
+    (setq my-state (+ 1 my-state))
+    )
+  (switch-to-buffer (generate-new-buffer "fazoo"))
+  (switch-to-buffer (generate-new-buffer "nazam"))
+  )
