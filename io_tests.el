@@ -11,3 +11,17 @@
   (switch-to-buffer (generate-new-buffer "indy-state-buffer"))
   (switch-to-buffer (generate-new-buffer "indy-state-buffer"))
   )
+
+(defun mark-hode-code-receiving-buffer ()
+   (interactive)
+   (setq hode-code-receiving-buffer (buffer-name)))
+(defun send_highlighted-region_to_hode-code-receiving-buffer
+    (beg end)
+  (interactive "r")
+  (process-send-string hode-code-receiving-buffer ":{\n")
+  (process-send-region hode-code-receiving-buffer beg end)
+  (process-send-string hode-code-receiving-buffer "\n:}\n"))
+(global-set-key
+ ( kbd "C-c s")
+ ( lambda () (interactive)
+   (send_highlighted-region_to_hode-code-receiving-buffer) ) )
