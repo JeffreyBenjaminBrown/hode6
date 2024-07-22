@@ -1,7 +1,4 @@
-import sys
+""" Probably want to open a repl, define the filename as a global variable, and define functions for manipulating it. Or, use that filename as an argument to those function each time."""
 
-# Why these don't work in a (value if else) expression,
-# I don't know.
-if len (sys.argv) >= 2:
-  filename = sys.argv[1] # Before this is listed the program name.
-else: filename = input ()
+with open ( filename, "a") as the_file:
+    the_file . write ( "appended text\n" )
