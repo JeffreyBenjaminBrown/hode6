@@ -1,3 +1,6 @@
+docker exec -it hode bash
+docker stop hode && docker rm hode
+
 DOCKER_IMAGE_SUFFIX="2024-06-27.python"
 STARTING_AT=$(date)
 echo $(date)
@@ -10,5 +13,3 @@ docker rmi jeffreybbrown/hode:new
 
 docker push jeffreybbrown/hode:$DOCKER_IMAGE_SUFFIX
 docker push jeffreybbrown/hode:latest
-
-docker stop hode && docker rm hode
