@@ -1,5 +1,5 @@
 (setq hode-docker-launch-command
-      "docker run --name hode -d            \
+      "docker run --name hode -it -d        \
          -v typedb-data:/opt/               \
          -v /home/jeff/hode6/hode-data:/mnt \
          -p 1729:1729                       \

@@ -1,3 +1,28 @@
+* response
+Thanks!
+
+I'm running TypeDB from the Docker image that you provide:
+https://hub.docker.com/layers/vaticle/typedb/latest/images/sha256-b62f455c89fb1a31ee7c1ec0af9f2b5ed452a6507b594f7447b5df9f2f92313f
+
+From there if I run `pip install typedb-driver` I get a `can't find it` error:
+```
+
+root@26f767b4e868:/opt/typedb-all-linux-x86_64# pip install typedb-driver
+ERROR: Could not find a version that satisfies the requirement typedb-driver (from versions: none)
+ERROR: No matching distribution found for typedb-driver
+root@26f767b4e868:/opt/typedb-all-linux-x86_64#
+```
+
+I'm guessing the problem might be that the Docker image you provide uses a four-year-old version of Ubuntu:
+```
+root@26f767b4e868:/opt/typedb-all-linux-x86_64# cat /etc/lsb-release
+DISTRIB_ID=Ubuntu
+DISTRIB_RELEASE=20.04
+DISTRIB_CODENAME=focal
+DISTRIB_DESCRIPTION="Ubuntu 20.04.6 LTS"
+```
+for which the latest version of Python is 3.8, and that typedb-driver is only available for more recent versions of Python. I tried to rebuild the Docker image myself from a more recent version of Ubuntu, but I haven't found the Dockerfile. You don't seem to have a Docker image repo on Github. Do you publish that anywhere, or is it a secret?
+* first
 I asked the TypeDB forum this question today (2024 06 27).
 
 # ##########################

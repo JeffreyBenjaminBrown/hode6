@@ -1,0 +1,5 @@
+* There should only be one instance of the Docker run command
+  Currently it is duplicated in these files:
+    ~/hode6/io_tests/spawn-shell-and-send-commands-to-shell.el
+    ~/hode6/docker/commands.sh
+    ~/hode6/README.md

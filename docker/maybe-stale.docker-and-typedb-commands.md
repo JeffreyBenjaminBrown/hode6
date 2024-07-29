@@ -1,4 +1,5 @@
-Some TypeDB | Docker commands:
+# Some TypeDB | Docker commands
+
 ```
 
 # Global root mode, with a local folder I can write to at /mnt.
