@@ -1,33 +1,11 @@
 ( load-file "./readfile.el")
 
-(setq hode-host-root ;; this string must be edited manually
-      "/home/jeff/hodal/hode6" )
-
-(setq hode-docker-run-command
-      ( concat
-        ( file-contents "../config/docker-run.sh" )
-        "\n" ) )
-
-(defun eval-in-bash-buffer-after-echoing-command
-    ( shell-buffer command )
-  "Ordinarily, process-send-string sends the string silently
- -- it is not visible in the receiving shell buffer.
-This makes it visible.
-
-PITFALL: For reasons I don't understand,
-only in the top Bash shell is a command like this needed.
-In the Docker container under Bash, commands echo as expected.
-And in the Python shell under the Docker container,
-they echo with some strange noise, but at least they echo."
-  ( process-send-string
-    shell-buffer
-    ( concat "echo \"" command "\" && " command "\n" ) ) )
-
 (defun hode-start ()
   "Important: process-send-string and call-process-shell-command are synchronous -- they block later operations while executing."
   ( interactive )
   ( setq hode-shell (shell "hode-shell" ) )
-  ( call-process-shell-command hode-docker-run-command )
+  ( call-process-shell-command
+    ( file-contents "../config/docker-run.sh" ) )
   ( process-send-string ;; PITFALL: This can't be merged with the next call to process-send-string.
     hode-shell "docker exec -it hode bash\n" )
   ( process-send-string
