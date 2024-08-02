@@ -5,5 +5,4 @@ docker run --name hode -it -d                     \
   -v /home/jeff/hodal/hode6/hode-data:/mnt/write  \
   -p 1729:1729                                    \
   --platform linux/amd64                          \
-  jeffreybbrown/hode:latest                   &&  \
-docker exec -it hode bash
+  jeffreybbrown/hode:latest

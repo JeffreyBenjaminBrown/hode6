@@ -24,12 +24,12 @@ they echo with some strange noise, but at least they echo."
     ( concat "echo \"" command "\" && " command "\n" ) ) )
 
 (defun hode-start ()
+  "Important: process-send-string and call-process-shell-command are synchronous -- they block later operations while executing."
   ( interactive )
   ( setq hode-shell (shell "hode-shell" ) )
-  ( eval-in-bash-buffer-after-echoing-command
-    hode-shell
-    hode-docker-run-command )
-  ( sit-for 1.5 ) ;; todo ? This is hacky. Nicer, but much more work, would be to check repeatedly and quickly for whether the docker container has loaded bash yet, and continue once it has.
+  ( call-process-shell-command hode-docker-run-command )
+  ( process-send-string ;; PITFALL: This can't be merged with the next call to process-send-string.
+    hode-shell "docker exec -it hode bash\n" )
   ( process-send-string
     hode-shell "cd /mnt                         && \
                 source /root/.venv/bin/activate && \
