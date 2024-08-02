@@ -1,3 +1,18 @@
+* integrate Emacs & Python
+** The Python carries a state of the view -- a string.
+** The Emacs displays a document.
+   The user can write into it.
+*** Optional: The user can't save it.
+    It's misleading if they can,
+    as that will not have any effect once I'm using TypeDB.
+** The Emacs sends a command to the Python.
+   There should be only one Emacs command,
+   which prompts the user for a Python-parseable string.
+** The Python parses the command.
+   Two commands: Append a number to the document,
+   or delete <number> lines.
+** The Python overwrites the file.
+** The Emacs redisplays that (automatically).
 * There should only be one instance of the Docker run command
   Currently it is duplicated in these files:
     ~/hode6/io_tests/spawn-shell-and-send-commands-to-shell.el
