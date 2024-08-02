@@ -35,7 +35,18 @@ they echo with some strange noise, but at least they echo."
   ( process-send-string
     hode-shell "cd /mnt                         && \
                 source /root/.venv/bin/activate && \
-                ipython                            \n" )
+                PYTHONPATH=$PYTHONPATH:. ipython   \n" )
+  ( process-send-string
+    hode-shell ( concat "import code.file_modifier as fm \n"
+                 "fm . initialize_view ()                \n" ) )
   ( find-file "~/hodal/hode6/hode-data/view.hode" )
   ( rename-buffer "hode-view" )
   ( setq hode-view ( current-buffer ) ) )
+
+(defun hode-append-line-to-view ()
+  ( interactive )
+  ( process-send-string hode-shell
+    ;; Tricky: Must escape not just the quotation marks,
+    ;; but the leading \ in the internal newline --
+    ;; the one that reaches hode-view rather than hode-shell.
+    "fm.append_to_view ( \"another line!\\n\" ) \n" ) )
