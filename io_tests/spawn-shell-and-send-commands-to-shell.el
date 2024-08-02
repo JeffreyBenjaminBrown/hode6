@@ -5,16 +5,10 @@
 (setq hode-host-root ;; this string must be edited manually
       "/home/jeff/hodal/hode6" )
 
-(setq hode-docker-launch-command
-      "docker run --name hode -it -d                     \
-         -v typedb-data:/opt/                            \
-         -v /home/jeff/hodal/hode6/config:/mnt/config:ro \
-         -v /home/jeff/hodal/hode6/io_tests:/mnt/code:ro \
-         -v /home/jeff/hodal/hode6/hode-data:/mnt/write  \
-         -p 1729:1729                                    \
-         --platform linux/amd64                          \
-         jeffreybbrown/hode:latest                   &&  \
-       docker exec -it hode bash                         \n ")
+(setq hode-docker-run-command
+      ( concat
+        ( file-contents "../config/docker-run.sh" )
+        "\n" ) )
 
 (defun eval-in-bash-buffer-after-echoing-command
     (shell-buffer command)
@@ -39,7 +33,7 @@ they echo with some strange noise, but at least they echo."
     hode-docker-launch-command )
   ( sit-for 1.5 ) ;; todo ? This is hacky. Nicer, but much more work, would be to check repeatedly and quickly for whether the docker container has loaded bash yet, and continue once it has.
   ( process-send-string
-    hode-shell "cd /mnt/code                    && \
+    hode-shell "cd /mnt                         && \
                 source /root/.venv/bin/activate && \
                 ipython                            \n" )
   ( find-file "~/hodal/hode6/hode-data/view.hode" ) )

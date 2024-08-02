@@ -1,9 +1,4 @@
-docker run --name hode -it -d          \
-    -v typedb-data:/opt/               \
-    -v /home/jeff/hode6/hode-data:/mnt \
-    -p 1729:1729                       \
-    --platform linux/amd64             \
-    jeffreybbrown/hode:new
+For `docker run`, see `./config/docker-run.sh`.
 
 docker exec -it hode bash
 

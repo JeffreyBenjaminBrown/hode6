@@ -1,12 +1,3 @@
-* keep a config folder
-  Both Python and Emacs need to read it,
-  to know things like the `docker run` command,
-  the view file's name, etc.
-** There should only be one instance of the Docker run command
-   Currently it is duplicated in these files:
-     ~/hode6/io_tests/spawn-shell-and-send-commands-to-shell.el
-     ~/hode6/docker/commands.sh
-     ~/hode6/README.md
 * integrate Emacs & Python
 ** The Python carries a state of the view -- a string.
 ** The Emacs displays a document.
@@ -22,3 +13,5 @@
    or delete <number> lines.
 ** The Python overwrites the file.
 ** The Emacs redisplays that (automatically).
+* keep a config folder
+  Both Python and Emacs will eventually need to read it.
