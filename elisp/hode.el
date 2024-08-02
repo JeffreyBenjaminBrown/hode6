@@ -41,6 +41,22 @@ they echo with some strange noise, but at least they echo."
   ( rename-buffer "hode-view" )
   ( setq hode-view ( current-buffer ) ) )
 
+(defun hode-quit ()
+  ( interactive )
+  ( message "quitting Hode, please wait")
+  ( let ( ( hode-shell-process
+	    ( get-buffer-process hode-shell ) ) )
+    ( interrupt-process hode-shell-process )
+    ( shell-command "docker stop hode" )
+    ( kill-buffer hode-view )
+    ( makunbound 'hode-view )
+    ( kill-process hode-shell-process )
+    ( shell-command "docker rm hode" )
+    ( kill-buffer hode-shell )
+    ( makunbound 'hode-shell )
+    )
+  ( message "Hode is off." ) )
+
 (defun hode-append-line-to-view ()
   ( interactive )
   ( process-send-string hode-shell
