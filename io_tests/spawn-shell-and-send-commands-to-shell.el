@@ -1,11 +1,20 @@
+;; Config
+
+(load-file "./elisp/readfile.el")
+
+(setq hode-host-root ;; this string must be edited manually
+      "/home/jeff/hodal/hode6" )
+
 (setq hode-docker-launch-command
-      "docker run --name hode -it -d        \
-         -v typedb-data:/opt/               \
-         -v /home/jeff/hode6/hode-data:/mnt \
-         -p 1729:1729                       \
-         --platform linux/amd64             \
-         jeffreybbrown/hode:latest       && \
-       docker exec -it hode bash            \n")
+      "docker run --name hode -it -d                     \
+         -v typedb-data:/opt/                            \
+         -v /home/jeff/hodal/hode6/config:/mnt/config:ro \
+         -v /home/jeff/hodal/hode6/io_tests:/mnt/code:ro \
+         -v /home/jeff/hodal/hode6/hode-data:/mnt/write  \
+         -p 1729:1729                                    \
+         --platform linux/amd64                          \
+         jeffreybbrown/hode:latest                   &&  \
+       docker exec -it hode bash                         \n ")
 
 (defun eval-in-bash-buffer-after-echoing-command
     (shell-buffer command)
@@ -22,12 +31,15 @@ they echo with some strange noise, but at least they echo."
    shell-buffer
    (concat "echo \"" command "\" && " command "\n")))
 
-(defun hode-buffer ()
-  (interactive)
-  (setq hode-buffer (shell "hode-buffer"))
-  (eval-in-bash-buffer-after-echoing-command
-   hode-buffer
-   hode-docker-launch-command )
-  (sit-for 1.5) ;; todo ? This is hacky. Nicer, but much more work, would be to check repeatedly and quickly for whether the docker container has loaded bash yet, and continue once it has.
-  (process-send-string
-   hode_buffer "ipython \n") )
+(defun hode-start ()
+  ( interactive )
+  ( setq hode-shell (shell "hode-shell" ))
+  ( eval-in-bash-buffer-after-echoing-command
+    hode-shell
+    hode-docker-launch-command )
+  ( sit-for 1.5 ) ;; todo ? This is hacky. Nicer, but much more work, would be to check repeatedly and quickly for whether the docker container has loaded bash yet, and continue once it has.
+  ( process-send-string
+    hode-shell "cd /mnt/code                    && \
+                source /root/.venv/bin/activate && \
+                ipython                            \n" )
+  ( find-file "~/hodal/hode6/hode-data/view.hode" ) )
