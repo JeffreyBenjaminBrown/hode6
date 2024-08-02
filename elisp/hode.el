@@ -1,6 +1,4 @@
-;; Config
-
-( load-file "./elisp/readfile.el")
+( load-file "./readfile.el")
 
 (setq hode-host-root ;; this string must be edited manually
       "/home/jeff/hodal/hode6" )
@@ -30,15 +28,15 @@ they echo with some strange noise, but at least they echo."
   ( setq hode-shell (shell "hode-shell" ) )
   ( eval-in-bash-buffer-after-echoing-command
     hode-shell
-    hode-docker-launch-command )
+    hode-docker-run-command )
   ( sit-for 1.5 ) ;; todo ? This is hacky. Nicer, but much more work, would be to check repeatedly and quickly for whether the docker container has loaded bash yet, and continue once it has.
   ( process-send-string
     hode-shell "cd /mnt                         && \
                 source /root/.venv/bin/activate && \
                 PYTHONPATH=$PYTHONPATH:. ipython   \n" )
   ( process-send-string
-    hode-shell ( concat "import code.file_modifier as fm \n"
-                 "fm . initialize_view ()                \n" ) )
+    hode-shell ( concat "import python.view as view \n"
+                 "view . initialize ()              \n" ) )
   ( find-file "~/hodal/hode6/hode-data/view.hode" )
   ( rename-buffer "hode-view" )
   ( setq hode-view ( current-buffer ) ) )
@@ -49,4 +47,4 @@ they echo with some strange noise, but at least they echo."
     ;; Tricky: Must escape not just the quotation marks,
     ;; but the leading \ in the internal newline --
     ;; the one that reaches hode-view rather than hode-shell.
-    "fm.append_to_view ( \"another line!\\n\" ) \n" ) )
+    "view.append ( \"another line!\\n\" ) \n" ) )
