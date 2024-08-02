@@ -1,6 +1,6 @@
 ;; Config
 
-(load-file "./elisp/readfile.el")
+( load-file "./elisp/readfile.el")
 
 (setq hode-host-root ;; this string must be edited manually
       "/home/jeff/hodal/hode6" )
@@ -11,7 +11,7 @@
         "\n" ) )
 
 (defun eval-in-bash-buffer-after-echoing-command
-    (shell-buffer command)
+    ( shell-buffer command )
   "Ordinarily, process-send-string sends the string silently
  -- it is not visible in the receiving shell buffer.
 This makes it visible.
@@ -21,13 +21,13 @@ only in the top Bash shell is a command like this needed.
 In the Docker container under Bash, commands echo as expected.
 And in the Python shell under the Docker container,
 they echo with some strange noise, but at least they echo."
-  (process-send-string
-   shell-buffer
-   (concat "echo \"" command "\" && " command "\n")))
+  ( process-send-string
+    shell-buffer
+    ( concat "echo \"" command "\" && " command "\n" ) ) )
 
 (defun hode-start ()
   ( interactive )
-  ( setq hode-shell (shell "hode-shell" ))
+  ( setq hode-shell (shell "hode-shell" ) )
   ( eval-in-bash-buffer-after-echoing-command
     hode-shell
     hode-docker-launch-command )
@@ -36,4 +36,6 @@ they echo with some strange noise, but at least they echo."
     hode-shell "cd /mnt                         && \
                 source /root/.venv/bin/activate && \
                 ipython                            \n" )
-  ( find-file "~/hodal/hode6/hode-data/view.hode" ) )
+  ( find-file "~/hodal/hode6/hode-data/view.hode" )
+  ( rename-buffer "hode-view" )
+  ( setq hode-view ( current-buffer ) ) )
