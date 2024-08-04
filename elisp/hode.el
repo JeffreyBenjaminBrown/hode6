@@ -12,9 +12,9 @@
     hode-shell "cd /mnt                         && \
                 source /root/.venv/bin/activate && \
                 PYTHONPATH=$PYTHONPATH:. ipython   \n" )
-  ( process-send-string
-    hode-shell ( concat "import python.view as view \n"
-                 "view . initialize ()              \n" ) )
+  ( process-send-string hode-shell
+    ( concat "import python.viewfile as viewfile \n"
+             "viewfile . initialize ()           \n" ) )
   ( find-file "~/hodal/hode6/hode-data/view.hode" )
   ( rename-buffer "hode-view" )
   ( setq hode-view ( current-buffer ) ) )
@@ -41,4 +41,4 @@
     ;; Tricky: Must escape not just the quotation marks,
     ;; but the leading \ in the internal newline --
     ;; the one that reaches hode-view rather than hode-shell.
-    "view.append ( \"another line!\\n\" ) \n" ) )
+    "viewfile.append ( \"another line!\\n\" ) \n" ) )
