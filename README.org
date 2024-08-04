@@ -1,0 +1,8 @@
+* To launch
+
+From Emacs, evaluate (highlight, then `M-x ev-reg`)
+the code in `elisp/hode.el`.
+Then run `hode-start`.
+
+If for some reason that doesn't work,
+manually execute what's in the `hode-start` source code.
