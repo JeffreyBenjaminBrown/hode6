@@ -19,6 +19,11 @@
   ( rename-buffer "hode-view" )
   ( setq hode-view ( current-buffer ) ) )
 
+(defun hode-send-shell (beg end)
+  (interactive "r")
+  (process-send-region receiving-ghci-buffer beg end)
+  (process-send-string receiving-ghci-buffer "\n") )
+
 (defun hode-quit ()
   ( interactive )
   ( message "quitting Hode, please wait")
