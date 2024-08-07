@@ -34,16 +34,27 @@ RUN apt install -y typedb
 
 RUN apt install -y python3 python3-pip
 RUN apt install -y python3.11-venv
-COPY requirements-for-pip.txt /root/
-SHELL ["/bin/bash", "-c"] # `source` below fails without this.
-RUN python3 -m venv /root/.venv              && \
-    source          /root/.venv/bin/activate && \
-    pip3 install -r /root/requirements-for-pip.txt
+
+RUN echo "<2024-08-07 Wed>" > /root/Dockerfile-echo-date
 
 
 ###
 ### Interface
 ###
+
+RUN useradd -u 1001 -g users user  && \
+    mkdir               /home/user && \
+    chown -R user:users /home/user && \
+    chmod -R 777        /home/user
+
+RUN chown -R user:users /opt
+
+USER user
+SHELL ["/bin/bash", "-c"] # `source` below fails without this.
+COPY requirements-for-pip.txt /home/user/
+RUN python3 -m venv /home/user/.venv              && \
+    source          /home/user/.venv/bin/activate && \
+    pip3 install -r /home/user/requirements-for-pip.txt
 
 EXPOSE 1729
 CMD ["/bin/bash"]

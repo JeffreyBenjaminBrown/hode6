@@ -14,7 +14,7 @@
     hode-typedb-shell "docker exec -it hode bash\n" )
   ( process-send-string hode-python-shell
     "cd /mnt                         && \
-     source /root/.venv/bin/activate && \
+     source /home/user/.venv/bin/activate && \
      PYTHONPATH=$PYTHONPATH:. ipython   \n" )
   ( process-send-string hode-typedb-shell
     "/opt/typedb-all-linux-x86_64/typedb server \n" )
