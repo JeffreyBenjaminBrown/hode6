@@ -1,0 +1,9 @@
+{
+  "username": "john_doe",
+  "email": "john_doe@example.com",
+  "age": 30,
+  "preferences": {
+    "theme": "dark",
+    "fontSize": 14
+  }
+}
