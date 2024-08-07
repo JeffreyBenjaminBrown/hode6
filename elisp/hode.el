@@ -1,4 +1,5 @@
-( load-file "./readfile.el")
+(load-file "./read-files.el")
+(hode-load-config "../config/config.json")
 
 (defun hode-start ()
   "Important: process-send-string and call-process-shell-command are synchronous -- they block later operations while executing."
@@ -6,7 +7,7 @@
   ( setq hode-python-shell (shell "hode-python-shell" ) )
   ( setq hode-typedb-shell (shell "hode-typedb-shell" ) )
   ( call-process-shell-command
-    ( file-contents "../config/docker-run.sh" ) )
+    ( text-file-as-string "../config/docker-run.sh" ) )
   ( process-send-string ;; PITFALL: This can't be merged with the next call to process-send-string.
     hode-python-shell "docker exec -it hode bash\n" )
   ( process-send-string
