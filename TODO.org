@@ -1,3 +1,9 @@
+* make /opt/typedb-all-linux-x86_64 owned by user:users
+** the code
+   chown -R user:users /opt
+   chmod -R 777        /opt
+** Incredibly, this does not work in a Dockerfile.
+   I don't know why, but other people have had the same problem.
 * try Python and TypeDB
   Don't bother trying to integrate Emacs initially;
   just do these things from Python.
