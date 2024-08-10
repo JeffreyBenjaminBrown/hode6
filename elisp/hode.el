@@ -1,7 +1,14 @@
 (load-file "./read-files.el")
 (hode-load-config "../config/config.json")
 
-(defun hode-start ()
+(setq hode-docker-mounted-server-data-copy
+      "/mnt/write/server-data")
+(setq hode-docker-internal-server-data
+      "/opt/typedb-all-linux-x86_64/server/data")
+
+(defun hode-start
+    ( run-in-docker-before-starting-typedb ;; string for Bash
+      )
   "Important: process-send-string and call-process-shell-command are synchronous -- they block later operations while executing."
   ( interactive )
   ( setq hode-python-shell (shell "hode-python-shell" ) )
@@ -17,13 +24,40 @@
      source /home/user/.venv/bin/activate && \
      PYTHONPATH=$PYTHONPATH:. ipython   \n" )
   ( process-send-string hode-typedb-shell
-    "/opt/typedb-all-linux-x86_64/typedb server \n" )
+    ( concat (if run-in-docker-before-starting-typedb
+                 run-in-docker-before-starting-typedb
+               ":") ;; ":" (without quotes) is the Bash noop
+      " "
+      " && /opt/typedb-all-linux-x86_64/typedb server \n" ) )
   ( process-send-string hode-python-shell
     ( concat "import python.viewfile as viewfile \n"
              "viewfile . initialize ()           \n" ) )
   ( find-file "~/hodal/hode6/hode-data/view.hode" )
   ( rename-buffer "hode-view" )
   ( setq hode-view ( current-buffer ) ) )
+
+(defun hode-start-fresh ()
+  ( interactive )
+  ( hode-start nil ) )
+
+(defun hode-start-from-saved-data ()
+  "Before starting the TypeDB console, copy the image of the TypeDB DB from the host system."
+  ( interactive )
+  ( hode-start
+    ( mapconcat 'identity ;; insert spaces between everything in the list
+      `( "cp -r" ;; quote the list to avoid treating head as function, then unquote the variables in the list
+         ,hode-docker-mounted-server-data-copy
+         ,hode-docker-internal-server-data)
+      " " ) ) )
+
+(defun hode-save-db-to-host ()
+  (interactive)
+  ( call-process-shell-command
+    ( mapconcat 'identity ;; insert spaces between everything in the list
+      `( "docker exec cp -r" ;; quote the list to avoid treating its head as a function, then unquote the variables in the list
+         ,hode-docker-internal-server-data
+         ,hode-docker-mounted-server-data-copy)
+      " " ) ) )
 
 (defun hode-quit ()
   ( interactive )
