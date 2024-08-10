@@ -20,9 +20,9 @@
   ( process-send-string
     hode-typedb-shell "docker exec -it hode bash\n" )
   ( process-send-string hode-python-shell
-    "cd /mnt                         && \
+    "cd /mnt                              && \
      source /home/user/.venv/bin/activate && \
-     PYTHONPATH=$PYTHONPATH:. ipython   \n" )
+     PYTHONPATH=$PYTHONPATH:. ipython        \n" )
   ( process-send-string hode-typedb-shell
     ( concat (if run-in-docker-before-starting-typedb
                  run-in-docker-before-starting-typedb
@@ -54,7 +54,7 @@
   (interactive)
   ( call-process-shell-command
     ( mapconcat 'identity ;; insert spaces between everything in the list
-      `( "docker exec cp -r" ;; quote the list to avoid treating its head as a function, then unquote the variables in the list
+      `( "docker exec hode cp -r" ;; quote the list to avoid treating its head as a function, then unquote the variables in the list
          ,hode-docker-internal-server-data
          ,hode-docker-mounted-server-data-copy)
       " " ) ) )
