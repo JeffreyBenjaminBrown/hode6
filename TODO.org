@@ -1,13 +1,3 @@
-* persistent data insanity
-** TODO try movig /opt/typedb*
-   See if moving /opt/typedb* to another folder
-   prevents it from persisting data.
-** the problem
-*** there are two `typedb-all-linux-x86_64/` folders on my system
-*** this one has no data in server/data/, which is what I expected
-    /var/lib/docker/overlay2/64b314c449c5dbe3461d2f898ba73aa783949c3b4d36c950ffefdca2c28dfd77/diff/opt/typedb-all-linux-x86_64/server/data
-*** but this one silently mounts and persists data!
-    /var/lib/docker/volumes/typedb-data/_data/typedb-all-linux-x86_64/server/data
 * try invisible characters
 ** plan
    Python keeps a list of (id, int) pairs,
@@ -54,5 +44,16 @@
 *** Delete an expression.
 *** Create a new type in an existing graph.
 *** Create a new kind of relationship in an existing graph.
-* Emacs: draw invisible coordinate characters,
-  and track cursor in them.
+* TODO ? persistent data insanity
+** It can wait.
+   The way it is is strange,
+   but I'm not sure I'll ever need to change it.
+** the problem
+*** there are two `typedb-all-linux-x86_64/` folders on my system
+*** this one has no data in server/data/, which is what I expected
+    /var/lib/docker/overlay2/64b314c449c5dbe3461d2f898ba73aa783949c3b4d36c950ffefdca2c28dfd77/diff/opt/typedb-all-linux-x86_64/server/data
+*** but this one silently mounts and persists data!
+    /var/lib/docker/volumes/typedb-data/_data/typedb-all-linux-x86_64/server/data
+** TODO try movig /opt/typedb*
+   See if moving /opt/typedb* to another folder
+   prevents it from persisting data.
