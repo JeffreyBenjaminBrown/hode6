@@ -24,9 +24,10 @@
      source /home/user/.venv/bin/activate && \
      PYTHONPATH=$PYTHONPATH:. ipython        \n" )
   ( process-send-string hode-typedb-shell
-    ( concat (if run-in-docker-before-starting-typedb
-                 run-in-docker-before-starting-typedb
-               ":") ;; ":" (without quotes) is the Bash noop
+    ( concat ;; Remember that && is synchronous.
+      (if run-in-docker-before-starting-typedb
+          run-in-docker-before-starting-typedb
+        ":") ;; ":" (without quotes) is the Bash noop
       " "
       " && /opt/typedb-all-linux-x86_64/typedb server \n" ) )
   ( process-send-string hode-python-shell
@@ -39,16 +40,6 @@
 (defun hode-start-fresh ()
   ( interactive )
   ( hode-start nil ) )
-
-(defun hode-start-from-saved-data ()
-  "Before starting the TypeDB console, copy the image of the TypeDB DB from the host system."
-  ( interactive )
-  ( hode-start
-    ( mapconcat 'identity ;; insert spaces between everything in the list
-      `( "cp -r" ;; quote the list to avoid treating head as function, then unquote the variables in the list
-         ,hode-docker-mounted-server-data-copy
-         ,hode-docker-internal-server-data)
-      " " ) ) )
 
 (defun hode-save-db-to-host ()
   (interactive)

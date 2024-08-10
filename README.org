@@ -1,8 +1,12 @@
+* TODO
+See todo_coding_hode6.org in my public org-roam notes:
+:ID:       d3d6e611-2c5c-4779-8417-70e2b58519c1
+:ROAM_ALIASES: "Hode6 coding, TODO"
+#+title: TODO coding Hode6
 * To launch
+Get the latest Docker image:
+`docker pull jeffreybbrown/hode:latest`
 
 From Emacs, evaluate (highlight, then `M-x ev-reg`)
 the code in `elisp/hode.el`.
 Then run `hode-start`.
-
-If for some reason that doesn't work,
-manually execute what's in the `hode-start` source code.
