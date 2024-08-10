@@ -47,7 +47,12 @@ RUN useradd -u 1001 -g users user  && \
     chown -R user:users /home/user && \
     chmod -R 777        /home/user
 
-RUN chown -R user:users /opt
+RUN mkdir /mnt/python                \
+          /mnt/config                \
+	  /mnt/write                 \
+	  /mnt/write/server-data  && \
+    chown -R user:users /opt /mnt && \
+    chmod -R 777        /opt /mnt/write /mnt/config
 
 USER user
 SHELL ["/bin/bash", "-c"] # `source` below fails without this.

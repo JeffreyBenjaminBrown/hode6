@@ -9,7 +9,7 @@ echo $(date)
 docker build -t jeffreybbrown/hode:new .
 echo $(date)
 
-DOCKER_IMAGE_SUFFIX="2024-07-07.docker-in-userland"
+DOCKER_IMAGE_SUFFIX="2024-07-07.user-owns-mnt-and-opt"
 docker tag jeffreybbrown/hode:new jeffreybbrown/hode:latest
 docker tag jeffreybbrown/hode:new jeffreybbrown/hode:$DOCKER_IMAGE_SUFFIX
 docker rmi jeffreybbrown/hode:new
