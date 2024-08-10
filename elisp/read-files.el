@@ -16,7 +16,8 @@
 (defun hode-load-config (configpath)
   "Load configuration from JSON file into Elisp variables."
   (let ((config (json-file-to-alist configpath)))
-    (setq hode-host-root (alist-get 'hode-host-root config))
+    (setq hode-root        (alist-get 'root        config))
+    (setq hode-server-data (alist-get 'server-data config))
     ;; TO EXTEND:
     ;; The next three lines show how to traverse nesting,
     ;; for instance if the config contained this:
