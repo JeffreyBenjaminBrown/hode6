@@ -1,4 +1,4 @@
-# TODO: Rather than a bunch of globals,
+# TODO: Rather than a few global variables,
 # it would be cleaner to use a singleton HodeView class.
 path = "/mnt/write/view.hode"
 state = ""

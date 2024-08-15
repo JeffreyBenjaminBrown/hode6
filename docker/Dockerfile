@@ -47,7 +47,7 @@ RUN useradd -u 1001 -g users user  && \
     chown -R user:users /home/user && \
     chmod -R 777        /home/user
 
-RUN mkdir /mnt/python                \
+RUN mkdir /mnt/src                   \
           /mnt/config                \
 	  /mnt/write                 \
 	  /mnt/write/server-data  && \

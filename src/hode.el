@@ -14,7 +14,9 @@
   ( setq hode-python-shell (shell "hode-python-shell" ) )
   ( setq hode-typedb-shell (shell "hode-typedb-shell" ) )
   ( call-process-shell-command
-    ( text-file-as-string "../config/docker-run.sh" ) )
+    ( concat
+      ( concat "host_root=" hode-root " && " )
+      ( text-file-as-string "../config/docker-run.sh" ) ) )
   ( process-send-string ;; PITFALL: This can't be merged with the next call to process-send-string.
     hode-python-shell "docker exec -it hode bash\n" )
   ( process-send-string
@@ -31,7 +33,7 @@
       " "
       " && /opt/typedb-all-linux-x86_64/typedb server \n" ) )
   ( process-send-string hode-python-shell
-    ( concat "import python.viewfile as viewfile \n"
+    ( concat "import src.viewfile as viewfile \n"
              "viewfile . initialize ()           \n" ) )
   ( find-file "~/hodal/hode6/hode-data/view.hode" )
   ( rename-buffer "hode-view" )
