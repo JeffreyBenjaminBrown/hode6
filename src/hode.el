@@ -41,15 +41,6 @@
   ( interactive )
   ( hode-start nil ) )
 
-(defun hode-save-db-to-host ()
-  (interactive)
-  ( call-process-shell-command
-    ( mapconcat 'identity ;; insert spaces between everything in the list
-      `( "docker exec hode cp -r" ;; quote the list to avoid treating its head as a function, then unquote the variables in the list
-         ,hode-docker-internal-server-data
-         ,hode-docker-mounted-server-data-copy)
-      " " ) ) )
-
 (defun hode-quit ()
   ( interactive )
   ( message "quitting Hode, please wait")

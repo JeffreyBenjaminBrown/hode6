@@ -1,3 +1,6 @@
+serial, recent at top
+* I solved it but don't know how.
+* the problem I recorded <2024-07-28 Sun>
 pip install fails in docker build but succeeds interactively in Docker container
 
 I built a Docker image. If I run (as root) the image in a container, I can execute the following from Bash:

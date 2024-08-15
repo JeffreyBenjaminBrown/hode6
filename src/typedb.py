@@ -41,3 +41,6 @@ with TypeDB.core_driver(SERVER_ADDR) as driver: # Can be manually closed (instea
         "match $p isa person; fetch $p: name;")
       for json in results:
         print (json)
+
+      results = tx.query.get (
+        "match $n isa person; get $p;" )
