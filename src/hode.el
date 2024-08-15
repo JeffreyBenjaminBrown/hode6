@@ -9,8 +9,9 @@
 (defun hode-start
     ( run-in-docker-before-starting-typedb ;; string for Bash
       )
-  "Important: process-send-string and call-process-shell-command are synchronous -- they block later operations while executing."
-  ( interactive )
+  "Important: process-send-string and call-process-shell-command are synchronous -- they block later operations while executing.
+
+Note that this is *not* interactive; it is a helper function."
   ( setq hode-python-shell (shell "hode-python-shell" ) )
   ( setq hode-typedb-shell (shell "hode-typedb-shell" ) )
   ( call-process-shell-command
@@ -40,6 +41,9 @@
   ( setq hode-view ( current-buffer ) ) )
 
 (defun hode-start-fresh ()
+  ;; PITFALL: Don't merge this and hode-start into one function,
+  ;; because it would break some of
+  ;;   ./_so-far-not-important/hode-save-and-load.el
   ( interactive )
   ( hode-start nil ) )
 
