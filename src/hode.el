@@ -17,7 +17,7 @@ Note that this is *not* interactive; it is a helper function."
   ( call-process-shell-command
     ( concat
       ( concat "host_root=" hode-root " && " )
-      ( text-file-as-string "../config/docker-run.sh" ) ) )
+      ( text-file-as-string "../docker/run.sh" ) ) )
   ( process-send-string ;; PITFALL: This can't be merged with the next call to process-send-string.
     hode-python-shell "docker exec -it hode bash\n" )
   ( process-send-string
@@ -36,7 +36,8 @@ Note that this is *not* interactive; it is a helper function."
   ( process-send-string hode-python-shell
     ( concat "import src.viewfile as viewfile \n"
              "viewfile . initialize ()           \n" ) )
-  ( find-file "~/hodal/hode6/hode-data/view.hode" )
+  ( find-file ( file-name-concat
+                hode-root "hode-data/view.hode" ) )
   ( rename-buffer "hode-view" )
   ( setq hode-view ( current-buffer ) ) )
 
