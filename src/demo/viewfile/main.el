@@ -1,5 +1,5 @@
-(load-file "../read-files.el")
-(hode-load-config "../../config/config.json")
+(load-file "../../read-files.el")
+(hode-load-config "../../../data/config.json")
 
 (setq hode-docker-mounted-server-data-copy
       "/mnt/write/server-data")
@@ -15,7 +15,7 @@
     ;; because so far that's hard-coded into docker/run.sh.
     ( concat
       ( concat "host_root=" hode-root " && " )
-      ( text-file-as-string "../../docker/run.sh" ) ) )
+      ( text-file-as-string "../../../docker/run.sh" ) ) )
   ( process-send-string ;; PITFALL: This can't be merged with the next call to process-send-string.
     viewfile-demo-python-shell
     "docker exec -it hode bash\n" )
@@ -24,10 +24,10 @@
      source /home/user/.venv/bin/activate && \
      PYTHONPATH=$PYTHONPATH:. ipython        \n" )
   ( process-send-string viewfile-demo-python-shell
-    ( concat "import src.viewfile_demo.viewfile as viewfile \n"
+    ( concat "import src.demo.viewfile.viewfile as viewfile \n"
              "viewfile . initialize ()           \n" ) )
   ( find-file ( file-name-concat
-                hode-root "hode-data/view.hode" ) )
+                hode-root "mutable-data/view.hode" ) )
   ( rename-buffer "viewfile-demo-view" )
   ( setq viewfile-demo-view ( current-buffer ) ) )
 

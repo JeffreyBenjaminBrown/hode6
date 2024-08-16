@@ -2,6 +2,6 @@
   "COMMENT": "All paths are in the host system, not the Docker container. I am aware of no reason a user would need to change the paths used in the Docker container.",
   "root": "/home/jeff/hodal/hode6/",
   "root COMMENT":"This is absolute.",
-  "server-data":"hode-data/",
+  "server-data":"mutable-data/",
   "server-data COMMENT":"This is relative to root."
 }

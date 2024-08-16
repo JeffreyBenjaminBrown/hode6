@@ -5,11 +5,11 @@
 # Global root mode, with a local folder I can write to at /mnt.
 # (The global data is at /var/lib/docker/volumes/typedb-data,
 # which somehow can just be called "typedb-data" here.)
-docker run --name typedb -d          \
-  -v typedb-data:/opt/               \
-  -v /home/jeff/hode6/hode-data:/mnt \
-  -p 1729:1729                       \
-  --platform linux/amd64             \
+docker run --name typedb -d             \
+  -v typedb-data:/opt/                  \
+  -v /home/jeff/hode6/mutable-data:/mnt \
+  -p 1729:1729                          \
+  --platform linux/amd64                \
   vaticle/typedb:latest
 
 # enter the Docker container

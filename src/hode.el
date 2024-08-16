@@ -1,5 +1,5 @@
 (load-file "./read-files.el")
-(hode-load-config "../config/config.json")
+(hode-load-config "../data/config.json")
 
 (setq hode-docker-mounted-server-data-copy
       "/mnt/write/server-data")
@@ -37,7 +37,7 @@ Note that this is *not* interactive; it is a helper function."
     ( concat "import src.viewfile as viewfile \n"
              "viewfile . initialize ()           \n" ) )
   ( find-file ( file-name-concat
-                hode-root "hode-data/view.hode" ) )
+                hode-root "mutable-data/view.hode" ) )
   ( rename-buffer "hode-view" )
   ( setq hode-view ( current-buffer ) ) )
 
