@@ -13,7 +13,7 @@
   and either give it that name, or edit all instances
   of that name in th e code to be what you called it.
   `docker/commands.sh` has some commands I find handy for that.)
-** Evaluate `src/hode.el`.
+** Evaluate `src/main.el`.
    Visit it and run `M-x eval-buffer`.
 ** M-x hode-start
 * TODO

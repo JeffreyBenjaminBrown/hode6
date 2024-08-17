@@ -3,7 +3,12 @@
 ;; That persists from one `docker run` to the next!
 ;; Without the user needing to mount a folder for it!
 
-(load-file "./hode.el") ;; For the variables and function used that start with `hode`.
+(load-file "../main.el") ;; For the variables and function used that start with `hode`.
+
+(setq hode-docker-mounted-server-data-copy
+      "/mnt/write/server-data")
+(setq hode-docker-internal-server-data
+      "/opt/typedb-all-linux-x86_64/server/data")
 
 (defun hode-save-db-to-host ()
   (interactive)

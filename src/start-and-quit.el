@@ -1,11 +1,3 @@
-(load-file "./util/read-files.el")
-(hode-load-config "../data/config.json")
-
-(setq hode-docker-mounted-server-data-copy
-      "/mnt/write/server-data")
-(setq hode-docker-internal-server-data
-      "/opt/typedb-all-linux-x86_64/server/data")
-
 (defun hode-start
     ( run-in-docker-before-starting-typedb ;; string for Bash
       )
@@ -34,8 +26,8 @@ Note that this is *not* interactive; it is a helper function."
       " "
       " && /opt/typedb-all-linux-x86_64/typedb server \n" ) )
   ( process-send-string hode-python-shell
-    ( concat "import src.viewfile as viewfile \n"
-             "viewfile . initialize ()           \n" ) )
+    ( concat "import src.model as model \n"
+             "model . initialize ()     \n" ) )
   ( find-file ( file-name-concat
                 hode-root "mutable-data/view.hode" ) )
   ( rename-buffer "hode-view" )
@@ -68,12 +60,3 @@ Note that this is *not* interactive; it is a helper function."
     ( kill-buffer hode-typedb-shell )
     ( makunbound 'hode-typedb-shell ) )
   ( message "Hode is off." ) )
-
-(defun hode-append-line-to-view ()
-  ( interactive )
-  ( process-send-string hode-python-shell
-    ;; Tricky: Must escape not just the quotation marks,
-    ;; but the leading \ in the internal newline --
-    ;; the one that reaches hode-view,
-    ;; rather than hode-python-shell.
-    "viewfile.append ( \"another line!\\n\" ) \n" ) )
