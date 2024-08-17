@@ -35,6 +35,13 @@
   (while (hide-next-should-be-invisible-passage)
     (ignore))) ;; This is a no-op.
 
+(defun hide-all-should-be-invisible-passages ()
+  (interactive)
+  (let ((saved-point (point)))
+    (goto-char 0)
+    (hide-all-subsequent-should-be-invisible-passages)
+    (goto-char saved-point)))
+
 (;; Evaluating this will hide text following it.
  hide-all-subsequent-should-be-invisible-passages)
 
