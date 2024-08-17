@@ -1,7 +1,9 @@
 # exec ( open ( "src/demo/typedb.py" ) . read () )
 
 import typedb
-from typedb.driver import TypeDB, SessionType, TransactionType
+from   typedb.driver import TypeDB, SessionType, TransactionType
+from   typedb.concept.answer.concept_map import _ConceptMap
+from   typing import Dict, List, Set
 
 from src.util.typedb import *
 
@@ -24,6 +26,10 @@ data_insert (
   defs = [ "insert $p isa person, has name 'Alice';",
            "insert $p isa person, has name 'Bob';" ] )
 
-json = data_fetch ( # TODO: Fix definition of data_fetch.
+fetch : Dict = data_fetch (
   db = DB_NAME,
   query = "match $p isa person; fetch $p: name;" )
+
+get : List [ _ConceptMap ] = data_get (
+  db    = DB_NAME,
+  query = "match $p isa person; get $p;" )
