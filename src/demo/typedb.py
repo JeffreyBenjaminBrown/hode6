@@ -1,4 +1,4 @@
-# exec ( open ( "python/typedb.py" ) . read () )
+# exec ( open ( "src/demo/typedb.py" ) . read () )
 
 # ORIGIN:
 # This is from TypeDB's Python driver QuickStart:
@@ -8,7 +8,7 @@ import typedb
 from typedb.driver import TypeDB, SessionType, TransactionType
 
 
-DB_NAME = "access-management-db"
+DB_NAME = "demo"
 SERVER_ADDR = "127.0.0.1:1729"
 
 with TypeDB.core_driver(SERVER_ADDR) as driver: # Can be manually closed (instead of using `with`), uisng `.close()`. PITFALL: There can be only one.

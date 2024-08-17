@@ -4,8 +4,8 @@
   "Important: process-send-string and call-process-shell-command are synchronous -- they block later operations while executing.
 
 Note that this is *not* interactive; it is a helper function."
-  ( setq hode-python-shell (shell "hode-python-shell" ) )
-  ( setq hode-typedb-shell (shell "hode-typedb-shell" ) )
+  ( setq hode-python-shell (shell "Hode-python-shell" ) )
+  ( setq hode-typedb-shell (shell "Hode-typedb-shell" ) )
   ( call-process-shell-command
     ( concat
       ( concat "host_root=" hode-root " && " )
@@ -30,7 +30,7 @@ Note that this is *not* interactive; it is a helper function."
              "model . initialize ()     \n" ) )
   ( find-file ( file-name-concat
                 hode-root "mutable-data/view.hode" ) )
-  ( rename-buffer "hode-view" )
+  ( rename-buffer "Hode-view" )
   ( setq hode-view ( current-buffer ) ) )
 
 (defun hode-start-fresh ()
