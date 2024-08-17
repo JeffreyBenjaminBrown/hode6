@@ -1,46 +1,29 @@
 # exec ( open ( "src/demo/typedb.py" ) . read () )
 
-# ORIGIN:
-# This is from TypeDB's Python driver QuickStart:
-#   https://typedb.com/docs/drivers/python/overview
-
 import typedb
 from typedb.driver import TypeDB, SessionType, TransactionType
+
+from src.util.typedb import *
 
 
 DB_NAME = "demo"
 SERVER_ADDR = "127.0.0.1:1729"
 
-with TypeDB.core_driver(SERVER_ADDR) as driver: # Can be manually closed (instead of using `with`), uisng `.close()`. PITFALL: There can be only one.
+delete_db_if_present (DB_NAME)
+create_db_if_absent (DB_NAME)
 
-  if driver.databases.contains(DB_NAME):
-    driver.databases.get(DB_NAME).delete()
-  driver.databases.create(DB_NAME)
+schema_define (
+  db = DB_NAME,
+  defs = [ "define person sub entity;",
+           " ".join ( [ "define name sub attribute,"
+                        "value string;"
+                        "person owns name;" ] ) ] )
 
-  with driver.session ( # Can be manually closed (instead of using `with`), uisng `.close()`. PITFALL: There can be only one.
-      DB_NAME,
-      SessionType.SCHEMA ) as session:
-    with session.transaction ( # Can be manually closed (instead of using `with`), uisng `.close()`.
-        TransactionType.WRITE ) as tx:
-      tx.query.define( "define person sub entity;" )
-      tx.query.define(" ".join (
-        [ "define name sub attribute, value string;"
-          "person owns name;" ] ) )
-      tx.commit ()
+data_insert (
+  db = DB_NAME,
+  defs = [ "insert $p isa person, has name 'Alice';",
+           "insert $p isa person, has name 'Bob';" ] )
 
-  with driver.session(
-      DB_NAME,
-      SessionType . DATA) as session:
-    with session.transaction ( TransactionType.WRITE ) as tx:
-      tx.query.insert("insert $p isa person, has name 'Alice';")
-      tx.query.insert("insert $p isa person, has name 'Bob';")
-      tx.commit ()
-    with session.transaction (
-        TransactionType.READ ) as tx:
-      results = tx.query.fetch (
-        "match $p isa person; fetch $p: name;")
-      # To get objects rather than parameters:
-      # results = tx.query.get (
-      #   "match $n isa person; get $p;" )
-      for json in results:
-        print (json)
+json = data_fetch ( # TODO: Fix definition of data_fetch.
+  db = DB_NAME,
+  query = "match $p isa person; fetch $p: name;" )
