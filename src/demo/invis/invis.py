@@ -4,7 +4,7 @@
 from typing import Dict, List, Tuple
 from dataclasses import dataclass
 
-from src.random_uid import random_uid
+from src.util.random_uid import random_uid
 
 
 with open("data/hide-start-symbol.txt", 'r') as file:
@@ -15,7 +15,7 @@ viewfile_path = "/mnt/write/view.hode"
 
 instructional_header = \
 """Welcome to the hiddent text demo.
-TODO: Add instructions."""
+See the README for what to do."""
 
 uid = str
 

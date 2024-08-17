@@ -1,18 +1,41 @@
-See `try_invisible_characters_hode.org` in my public notes:
+# USAGE
 
-:ID:       5aada471-bf64-4e6e-911d-292c4a7eb77c
-#+title: try invisible characters \ Hode
+First download the Docker image:
+```
+docker pull jeffreybbrown/hode:latest
+```
+Then evaluate the code in `main.el` in this folder from Emacs
+(by visiting that code in a buffer and running `eval-buffer`).
+This will launch a buffer running a Docker container,
+and within it, Python.
+It will also launch a view of the document.
 
-# in brief
+From the view of the document,
+play around with the commands in `interface.el`
+(which were defined when you evaluated `main.el`):
+```
+  (defun invis-demo-insert-node ...
+  (defun invis-demo-increment-node-at-cursor ...
+```
 
-* plan
-  Python keeps a list of (id, int) pairs,
-  which represent the document.
-  It writes to a file, where the id is invisible,
-  at the start of each line.
-  Emacs reads the file, displays it accordingly.
-  I write three Emacs functions:
-    delete-line-at-point,
-    insert-line-after-point,
-    increment-line-at-point.
-  Each line begins as the int 0.
+# PURPOSE
+
+This demonstrates how to use hidden characters
+to communicate between Emacs and Python.
+The document model, in Python, is a list of (ID, int) pairs.
+In Emacs one can use the following two interactive functions:
+```
+  (defun invis-demo-insert-node ...
+  (defun invis-demo-increment-node-at-cursor ...
+```
+to manipulate the document. The first adds a new line
+(that is, a new pair) to the model.
+The second increments the integer in that pair.
+THe document appears in Emacs only as a list of integers --
+the IDs are hidden.
+
+In the second function, `invis-demo-increment-node-at-cursor`,
+Emcas tells Python how to change the model
+by referring to the ID of the relevant pair,
+which is encoded as hidden text
+at the beginning of the line representing that pair.
