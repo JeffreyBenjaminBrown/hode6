@@ -2,8 +2,14 @@
 ;; This demonstrates how to hide text,
 ;; based on matches to some searches.
 
-(setq hide-start-symbol "[!hide-start¡]" )
-(setq hide-stop-symbol  "[!hide-stop¡]" )
+(setq hide-start-symbol
+      (string-trim
+       (text-file-as-string
+        "../../../data/hide-start-symbol.txt")))
+(setq hide-stop-symbol
+      (string-trim
+       (text-file-as-string
+        "../../../data/hide-stop-symbol.txt")))
 
 (defun goto-and-return-start-of-next-match (str)
   (if ;; In search-forward and search-backward,
