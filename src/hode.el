@@ -1,4 +1,4 @@
-(load-file "./read-files.el")
+(load-file "./util/read-files.el")
 (hode-load-config "../data/config.json")
 
 (setq hode-docker-mounted-server-data-copy
