@@ -1,6 +1,17 @@
 ;; PURPOSE:
-;; This demonstrates how to hide text,
-;; based on matches to some searches.
+;; Utilities for hiding text, based on search matches.
+;; The interface, the only interactive function,
+;; is `hide-all-should-be-invisible-passages`.
+;; See DEMO to see it in action.
+
+(defun exit-right-of-hidden-region-if-in-one ()
+  "PITFALL: This assumes there are only two values for 'invisible, the true one ('hode) and the false one (nil)."
+  (if (get-text-property (point) 'invisible)
+      (goto-char (next-single-property-change
+                  (point) 'invisible))))
+
+(defun is-point-in-invisible-region ()
+  (message "%s" (get-text-property (point) 'invisible) ))
 
 (setq hide-start-symbol
       (string-trim
@@ -43,14 +54,16 @@
 
 (defun hide-all-should-be-invisible-passages ()
   (interactive)
-  (let ((saved-point (point)))
+  (let ((saved-char (point)))
     (goto-char 0)
     (hide-all-subsequent-should-be-invisible-passages)
-    (goto-char saved-point)))
+    (goto-char saved-char)))
 
-(;; Evaluating this will hide text following it.
- hide-all-subsequent-should-be-invisible-passages)
-
+;; DEMO:
+;; Evaluating the following expression
+;; will hide some of the text below it.
+;; (hide-all-subsequent-should-be-invisible-passages)
+;;
 ;; visible [!hide-stop¡] visible
 ;; visible [!hide-start¡] invisible [!hide-stop¡]
 ;; visible
