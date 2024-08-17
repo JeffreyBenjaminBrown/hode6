@@ -1,5 +1,7 @@
 (defun hode-send-shell (beg end)
-  "Chokes on whitespace or something.
+  "PURPOSE: Send a highlighted region to Python to evaluate.
+
+PROBLEM: Chokes on whitespace or something.
 Instead, just run
   exec ( open ( filename ) . read () )
 from the Python shell."
