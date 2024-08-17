@@ -1,13 +1,38 @@
+# USAGE:
+# See src/demo/typedb.py
+
+# PITFALL: Multiple sessions are inefficient.
+#
+# The idiom used here lends itself to inefficient coding.
+# I create a new core_driver instance,
+# and from it a new session,
+# in most of the functions defined below.
+# Calling a whole lot of those functions at once
+# will surely be much less efficient than collecting the operations
+# into a single session.
+#
+# One solution would be to leave the session open,
+# but then I would have to worry about closing it once I'm done,
+# which so far seems unworth the extra thought.
+#
+# A middle path, which I like, is to batch all similar operations
+# (for instance, all schema definition operations)
+# into a single function call. These functions permit that.
+
+# FURTHER GUIDANCE:
+#
 # There are a few comments in `src/demo/typedb.py`,
 # regarding uniqueness constraints
 # and alternative ways of doing things,
-# which are not reproduced here.
+# which I thought would be helpful and are not reproduced here.
 
 import typedb
 from   typedb.concept.answer.concept_map import _ConceptMap
 from   typedb.driver import TypeDB, SessionType, TransactionType
 from   typing import Dict, List, Set
 
+
+iid = str
 
 SERVER_ADDR = "127.0.0.1:1729"
 
@@ -64,7 +89,7 @@ def data_fetch (
 def data_get (
     db : str,
     query : str
-) -> List [ # TODO: Why are these `_ConceptMap`s, and how do
+) -> List [ # todo: Why are these `_ConceptMap`s, and how do
             # those differ from `ConceptMap`s (without "_")?
   _ConceptMap ]:
   with TypeDB.core_driver (
@@ -78,22 +103,11 @@ def data_get (
           # lets me smuggle the results outside the function.
           r for r in tx.query.get ( query ) ]
 
-
-# TODO: Turn those Concepts into IDs:
-#
-# In [30]:
-#     ...: get : List [ ConceptMap ] = data_get (
-#     ...:   db = DB_NAME,
-#     ...:   query = "match $p isa person; get $p;" )
-#
-# In [31]: g=get[0]
-#
-# In [32]: gcs = [gc for gc in g.concepts() ]
-#
-# In [33]: gc = gcs[0]
-#
-# In [35]: gc.get_iid()
-# Out[35]: '0x826e80018000000000000000'
-#
-# In [36]: type ( gc.get_iid() )
-# Out[36]: str
+def data_get_iids (
+    db : str,
+    query : str
+) -> List [ iid ]:
+  return [ c.get_iid ()
+           for g in data_get ( db = db,
+                               query = query )
+           for c in g.concepts () ]

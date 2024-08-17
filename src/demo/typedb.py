@@ -26,10 +26,14 @@ data_insert (
   defs = [ "insert $p isa person, has name 'Alice';",
            "insert $p isa person, has name 'Bob';" ] )
 
-fetch : Dict = data_fetch (
+attributes : Dict = data_fetch (
   db = DB_NAME,
   query = "match $p isa person; fetch $p: name;" )
 
-get : List [ _ConceptMap ] = data_get (
+concepts : List [ _ConceptMap ] = data_get (
   db    = DB_NAME,
+  query = "match $p isa person; get $p;" )
+
+iids : List [iid] = data_get_iids (
+  db = DB_NAME,
   query = "match $p isa person; get $p;" )
