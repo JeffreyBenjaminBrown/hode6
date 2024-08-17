@@ -48,11 +48,11 @@ RUN useradd -u 1001 -g users user  && \
     chmod -R 777        /home/user
 
 RUN mkdir /mnt/src                   \
-          /mnt/config                \
+          /mnt/data                  \
 	  /mnt/write                 \
 	  /mnt/write/server-data  && \
     chown -R user:users /opt /mnt && \
-    chmod -R 777        /opt /mnt/write /mnt/config
+    chmod -R 777        /opt /mnt/write /mnt/data
 
 USER user
 SHELL ["/bin/bash", "-c"] # `source` below fails without this.

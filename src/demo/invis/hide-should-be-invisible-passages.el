@@ -38,10 +38,10 @@
 (;; Evaluating this will hide text following it.
  hide-all-subsequent-should-be-invisible-passages)
 
-visible [!hide-stop¡] visible
-visible [!hide-start¡] invisible [!hide-stop¡]
-visible
-visible [!hide-start¡] invisible [!hide-stop¡]
-visible
-visible [!hide-start¡] invisible [!hide-stop¡]
-visible [!hide-start¡] visible
+;; visible [!hide-stop¡] visible
+;; visible [!hide-start¡] invisible [!hide-stop¡]
+;; visible
+;; visible [!hide-start¡] invisible [!hide-stop¡]
+;; visible
+;; visible [!hide-start¡] invisible [!hide-stop¡]
+;; visible [!hide-start¡] visible

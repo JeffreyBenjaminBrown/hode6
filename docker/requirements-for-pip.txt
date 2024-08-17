@@ -1,2 +1,4 @@
 ipython
+mypy
+pytest
 typedb-driver
