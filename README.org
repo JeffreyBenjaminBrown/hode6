@@ -1,12 +1,23 @@
-* TODO
-See todo_coding_hode6.org in my public org-roam notes:
-:ID:       d3d6e611-2c5c-4779-8417-70e2b58519c1
-:ROAM_ALIASES: "Hode6 coding, TODO"
-#+title: TODO coding Hode6
-* To launch
-Get the latest Docker image:
-`docker pull jeffreybbrown/hode:latest`
+* the presentable, friendly parts of this code
+  Every top-level entity in `src/demo/`
+  is user- and reader-friendly code.
+  If it's a folder, it contains a helpful README.
 
-From Emacs, evaluate (highlight, then `M-x ev-reg`)
-the code in `elisp/hode.el`.
-Then run `hode-start`.
+  The top-level code in `src/` outside of `src/demo/`
+  might make sense to nobody but myself so far.
+* how to launch the unfriendly top-level code
+  serial
+** First, get the latest Docker image:
+  `docker pull jeffreybbrown/hode:latest`.
+  (Alternatively, build it yourself -- see `docker/` --
+  and either give it that name, or edit all instances
+  of that name in th e code to be what you called it.
+  `docker/commands.sh` has some commands I find handy for that.)
+** Evaluate `src/hode.el`.
+   Visit it and run `M-x eval-buffer`.
+** M-x hode-start
+* TODO
+  See todo_coding_hode6.org in my public org-roam notes:
+  :ID:       d3d6e611-2c5c-4779-8417-70e2b58519c1
+  :ROAM_ALIASES: "Hode6 coding, TODO"
+  #+title: TODO coding Hode6

@@ -39,8 +39,8 @@ with TypeDB.core_driver(SERVER_ADDR) as driver: # Can be manually closed (instea
         TransactionType.READ ) as tx:
       results = tx.query.fetch (
         "match $p isa person; fetch $p: name;")
+      # To get objects rather than parameters:
+      # results = tx.query.get (
+      #   "match $n isa person; get $p;" )
       for json in results:
         print (json)
-
-      results = tx.query.get (
-        "match $n isa person; get $p;" )
