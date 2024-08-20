@@ -3,3 +3,5 @@ mutable-data
 /.emacs.desktop
 /.emacs.desktop.lock
 /docker/logs
+TAGS
+TAGS2

@@ -51,12 +51,12 @@ RUN mkdir /mnt/src                   \
           /mnt/data                  \
 	  /mnt/write                 \
 	  /mnt/write/server-data  && \
-    chown -R user:users /opt /mnt && \
-    chmod -R 777        /opt /mnt/write /mnt/data
+    chown -R user:users /home/user /opt /mnt && \
+    chmod -R 777        /home/user /opt /mnt/write /mnt/data
 
 USER user
 SHELL ["/bin/bash", "-c"] # `source` below fails without this.
-COPY requirements-for-pip.txt /home/user/
+COPY copy-into-image/* /home/user/
 RUN python3 -m venv /home/user/.venv              && \
     source          /home/user/.venv/bin/activate && \
     pip3 install -r /home/user/requirements-for-pip.txt
