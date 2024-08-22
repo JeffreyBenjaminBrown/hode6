@@ -1,5 +1,5 @@
 # exec ( open ( "src/demo/hode_data.py" ) . read () )
-# Based on src/demo/typedb.py.
+# For boilerplate see src/demo/typedb.py.
 
 import typedb
 from   typedb.driver import TypeDB, SessionType, TransactionType

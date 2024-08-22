@@ -33,6 +33,8 @@ concepts : List [ _ConceptMap ] = data_get (
   db    = DB_NAME,
   query = "match $p isa person; get $p;" )
 
+# DEPRECATED. They say roll your own instead,
+# because so far the TypeDB iid (internal id) is mutable.
 iids : List [iid] = data_get_iids (
   db = DB_NAME,
   query = "match $p isa person; get $p;" )
