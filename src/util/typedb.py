@@ -107,6 +107,7 @@ def data_get_iids (
     db : str,
     query : str
 ) -> List [ iid ]:
+  """DEPRECATED: The "iid" field in TypeDB is not static. They recommend rolling your own that is, if you want a UID."""
   return [ c.get_iid ()
            for g in data_get ( db = db,
                                query = query )

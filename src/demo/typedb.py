@@ -9,7 +9,6 @@ from src.util.typedb import *
 
 
 DB_NAME = "demo"
-SERVER_ADDR = "127.0.0.1:1729"
 
 delete_db_if_present (DB_NAME)
 create_db_if_absent (DB_NAME)
