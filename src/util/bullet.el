@@ -6,26 +6,27 @@
 ;; the bullet has no URI, and is blue rather than green.
 
 (defun hode-insert-bullet (uri)
+  "Insert a read-only bullet with an invisible URI, followed by a single writeable space."
   (beginning-of-line)
-  (let ((bullet ;; four extra characters: "* " and brackets
-         (concat "*[" uri "] ")))
-    (insert bullet)
+  (let ((bullet ;; three extra characters: "* " and brackets
+         (concat "*[" uri "]")))
+    (insert bullet " ")
     (beginning-of-line)
     (let ((bullet-start    (point))
           (hidden-start (+ (point) 1)) ;; exclude the asterisk
-          (bullet-end   (+ (point) 4   ;; 4 extra characters
+          (bullet-end   (+ (point) 3   ;; 3 extra characters
                            (length uri))))
-      ( put-text-property bullet-start (- bullet-end 1)
+      ( put-text-property bullet-start bullet-end
         'hode-bullet t )
       ( add-text-properties bullet-start hidden-start
         `( font-lock-face
            ( :background ,(if uri "#00ffaa" "#777700")
              :foreground "#000000")
            read-only 'hode-bullet))
-      ( add-text-properties hidden-start (- bullet-end 1)
+      ( add-text-properties hidden-start bullet-end
         '( invisible hode-uri
            read-only 'hode-bullet))
-      (forward-char (length bullet)))))
+      (forward-char (+ 1 (length bullet))))))
 
 (defun hode-bullet ()
   (interactive)
