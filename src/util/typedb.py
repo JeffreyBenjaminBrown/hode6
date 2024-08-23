@@ -1,5 +1,8 @@
 # USAGE:
-# See src/demo/typedb.py
+# See either of
+#   src/demo/typedb.py
+#   src/util/hode_data.py
+# (Some of these functions are only used in one of those.)
 
 # PITFALL: Multiple sessions are inefficient.
 #
@@ -67,6 +70,17 @@ def data_insert ( db : str,
                                 ) as tx:
         for d in defs:
           tx.query.insert (d)
+        tx.commit ()
+
+def data_delete ( db : str,
+                  query : List [str] ):
+  with TypeDB.core_driver( SERVER_ADDR
+                          ) as driver:
+    with driver.session( db,
+                         SessionType . DATA ) as session:
+      with session.transaction ( TransactionType.WRITE
+                                ) as tx:
+        tx.query.delete (query)
         tx.commit ()
 
 def data_fetch (

@@ -24,6 +24,13 @@ def insert_note ( text : str
                    "has uid '" + uid + "';" ] ) ] )
   return uid
 
+def delete_note ( uid : str ):
+  # PITFALL: It looks unnecessary,
+  # but the delete statement requires an `isa` clause.
+  tdb.data_delete ( " " . join ( [
+    "match $n isa note, has uid '" + uid + "';"
+    + "delete $n isa note;" ] ) )
+
 def insert_arrow ( source : str, # a UID
                    target : str  # a UID
                   ) -> ( str # The relation's UID
