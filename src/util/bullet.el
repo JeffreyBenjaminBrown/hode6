@@ -7,6 +7,7 @@
 
 (defun hode-insert-bullet (uri)
   "Insert a read-only bullet with an invisible URI, followed by a single writeable space."
+  ;; TODO: Should be idempotent. Two bullets on one line = bad.
   (beginning-of-line)
   (let ((bullet ;; three extra characters: "* " and brackets
          (concat "*[" uri "]")))
@@ -44,4 +45,24 @@
            (right-bracket (search-forward "]"))
            (uri ( buffer-substring-no-properties
                   left-bracket (- right-bracket 1))))
-      (list line-start left-bracket right-bracket uri))))
+      (list uri line-start left-bracket right-bracket))))
+
+(defun next-bullet-pos-or-eof ()
+  (save-excursion
+    (let ((text-start (nth 3 (bullet-uri-and-positions))))
+      (if ;; If in a bullet, exit it to the right.
+          (get-text-property (point) 'hode-bullet)
+          (goto-char (next-single-property-change
+                      (point) 'hode-bullet)))
+      (let ((next-change (next-single-property-change
+                          (point) 'hode-bullet)))
+                 (if next-change next-change 0))
+        (if next-change next-change (buffer-size))))))
+
+(defun text-associated-with-bullet ()
+  (save-excursion
+    (let* ((start (+ (nth 3 (bullet-uri-and-positions)) 1))
+           (end   (- (next-bullet-pos-or-eof)           1))
+           (text (buffer-substring-no-properties
+                  start end)))
+      text ) ) )
