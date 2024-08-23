@@ -31,15 +31,16 @@
   (interactive)
   (hode-insert-bullet nil))
 
-(defun this-or-previous-uri ()
-  "Move point to follow bullet. Return bullet URI."
-  (if (not (get-text-property (point) 'hode-bullet))
-      (goto-char (previous-single-property-change
-                  (point) 'hode-bullet)))
-  (beginning-of-line)
-  (let ((line-start (point))
-        (left-bracket (search-forward "["))
-        (right-bracket (search-forward "]")))
-    (forward-char 1)
-    ( buffer-substring-no-properties
-      left-bracket (- right-bracket 1))))
+(defun bullet-uri-and-positions ()
+  "Returns (uri line-start left-bracket right-bracket)."
+  (save-excursion
+    (if (not (get-text-property (point) 'hode-bullet))
+        (goto-char (previous-single-property-change
+                    (point) 'hode-bullet)))
+    (beginning-of-line)
+    (let* ((line-start (point))
+           (left-bracket (search-forward "["))
+           (right-bracket (search-forward "]"))
+           (uri ( buffer-substring-no-properties
+                  left-bracket (- right-bracket 1))))
+      (list line-start left-bracket right-bracket uri))))
